@@ -69,6 +69,16 @@ for f in slide_files:
     ]
 
     code_lines = code.splitlines()
+
+    import_code = [
+        code_lines[node.lineno - 1 : node.end_lineno]
+        for node in ast.walk(tree)
+        if isinstance(node, (ast.Import, ast.ImportFrom))
+    ]  # Get imports from source file
+
+    for stmt in import_code:
+        exec("\n".join(stmt))  # run imports
+
     max_line_no = 0
     for function in functions:
         if function.end_lineno > max_line_no:  # Skip inner functions
