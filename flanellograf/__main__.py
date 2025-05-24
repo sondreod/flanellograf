@@ -183,6 +183,9 @@ class Board:
         self.slide = int(slide) - 1
         self.display()
 
+    def __matmul__(self, other):
+        self.__call__(int(other))
+
 
 for board in BOARDS:
     globals()[board] = globals()[board[0]] = Board(board)  # (╯°□°)╯︵ ┻━┻
@@ -194,3 +197,4 @@ else:
     console.print(Panel("\n".join(BOARDS), title="Flanellograf"))
 
 # TODO: Make code callouts with unicode circle numbers
+# TODO: Run board.display() on SIGWINCH. Something like: `signal.signal(signal.SIGWINCH, m.winch)`
