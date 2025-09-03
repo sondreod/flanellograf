@@ -107,7 +107,7 @@ for f in slide_files:
                 page += sub_page
 
                 if "raw" in positional_arguments:
-                    docstring = f"<RAW>{docstring.removesuffix('"""')}"
+                    docstring = f"<RAW>{docstring.removesuffix('\"\"\"')}"
 
                 BOARDS[board_name].append((docstring, page))
 
