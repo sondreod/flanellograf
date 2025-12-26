@@ -95,7 +95,9 @@ for f in slide_files:
                     code = code[0]
                 else:
                     code = ""
-            docstring = docstring.strip()
+                docstring = docstring.strip()
+            else:
+                docstring = ""
 
             if "hide_code" in positional_arguments:
                 segment = [""]

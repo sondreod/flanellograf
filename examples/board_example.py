@@ -1,5 +1,4 @@
-"""Demo board (some global config)
-"""
+"""Demo board (some global config)"""
 
 
 def _():
@@ -42,17 +41,6 @@ def _():
     yield
     x = 1236
 
-
-def _(hide_code):
-    """lol fdkjdsfkjfs
-    Y0l0
-    fdsfdsfdsf
-    fddsfdsf
-    """
-    from math import pi as PI
-
-    def fn(x):
-        return x / PI
 
 
 def lol_(raw):
