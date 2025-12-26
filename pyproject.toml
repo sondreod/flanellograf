@@ -17,6 +17,9 @@ classifiers = [
 dynamic = ["version", "description"]
 dependencies = ["rich"]
 
+[project.scripts]
+flanellograf = "flanellograf.main:main"
+
 [project.urls]
 Source = "https://github.com/sondreod/flanellograf"
 Documentation = "https://github.com/sondreod/flanellograf"

@@ -1,31 +1,21 @@
-VENV_DIR = venv
-PYTHON = $(VENV_DIR)/bin/python
-PIP = $(VENV_DIR)/bin/pip
 
 .PHONY: install format precommit publish build clean
 
 
-venv:
-	python3 -m venv $(VENV_DIR)
-	$(PIP) install -e .[dev]
-
-dev: venv
-	@cat $(VENV_DIR)/bin/activate > dev
-	@echo export PYTHONPATH=$(PWD)/ >> dev
-	@echo "Dev environment ready, type '. dev' to activate"
+.venv:
+	uv venv
 
 format:
-	black .
-	isort .
+	uvx black .
+	uvx isort .
 
 precommit: format
 
-build: precommit
-	flit build
+build: .venv format precommit
+	uv build
 
 publish: build
-	flit publish
+	uv publish
 
 clean:
-	rm -rf venv/
-	rm dev
+	rm -rf .venv/
