@@ -9,7 +9,7 @@ class CustomCodeBlock(CodeBlock):
         self, console: Console, options: ConsoleOptions
     ) -> RenderResult:
 
-        if self.lexer_name == "lol":
+        if self.lexer_name == "python-cell":
             self.lexer_name = "python"
         yield from super().__rich_console__(console, options)
 
@@ -19,7 +19,7 @@ class CustomImageItem(ImageItem):
     ) -> RenderResult:
 
         uri = self.destination
-        yield Image(Path(uri), width='auto', height='90%')
+        yield Image(Path(uri), width='auto', height='50%')
         #yield from super().__rich_console__(console, options)
 
 
@@ -30,3 +30,22 @@ class MarkdownRenderer(Markdown):
         "image": CustomImageItem,
         "fence": CustomCodeBlock,  # for code blocks with language fences
     }
+
+
+""" Support matplotlib inline using TGP (pip install kitcat matplotlib)
+import logging
+import matplotlib
+import matplotlib.pyplot as plt
+# Must configure backend BEFORE importing pyplot
+matplotlib.use("kitcat")
+logging.getLogger('matplotlib.font_manager').disabled = True
+
+plt.style.use('dark_background')
+fig, ax = plt.subplots()
+fig.patch.set_facecolor('#232627')
+ax.set_facecolor('#232627')
+
+plt.xkcd()
+plt.bar(['lav','medium','lol','kek'],[3,7,1,6], color="green", alpha=0.7)
+plt.show()
+"""
