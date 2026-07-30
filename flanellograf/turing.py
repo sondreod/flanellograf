@@ -11,11 +11,6 @@ from rich.table import Table
 from markdown_it import MarkdownIt
 from textual_image.renderable import Image
 
-page = """
-# Lol
-![Wat](/home/debian/repos/advanced-python-2026/03_data_model/_static/wat-horse.png) where is this text?
-"""
-
 from textual_image.renderable import (
     SixelImage as SixelRenderable,
 )

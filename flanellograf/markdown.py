@@ -9,7 +9,7 @@ class CustomCodeBlock(CodeBlock):
         self, console: Console, options: ConsoleOptions
     ) -> RenderResult:
 
-        if self.lexer_name == "python-cell":
+        if self.lexer_name in ("python-cell", "python-show"):
             self.lexer_name = "python"
         yield from super().__rich_console__(console, options)
 

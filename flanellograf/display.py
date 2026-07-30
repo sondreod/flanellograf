@@ -59,38 +59,31 @@ class Board:
             if token_info:
                 code.append(token.content)
 
-        padding = self.console.width - len(self.frontmatter.get("title", "")) - 1 - 2
-        title = self.frontmatter.get("title", "") + " " + "─"*padding + " [bold]UGRADERT"
+        watermark = self.frontmatter.get("watermark", "")
+        title = self.frontmatter.get("title", "")
+        padding = self.console.width - len(title) - len(watermark) - 8
+        banner = f"{title} {'─'*padding} [bold]{watermark}"
+
         self.console.print(
             Panel.fit(
                 MarkdownRenderer(page, code_theme="stata-dark", inline_code_lexer="python"),
                 box=getattr(box, self.frontmatter.get("style", "ROUNDED").upper()),
-                title=title,
-                subtitle="[bold]UGRADERT",
+                title=banner,
+                subtitle=f"[bold]{watermark}",
                 subtitle_align="right",
                 title_align="left",
                 padding=1,
             )
         )
+
         if token_info in ('py', 'python', 'python-cell'):
             if code:
-
                 source = "\n".join(code)
-                nodes = list(ast.iter_child_nodes(ast.parse(source)))
-                
-                if nodes:
-                    """
-                    if isinstance(nodes[-1], ast.Expr):
-                        if len(nodes) > 1:
-                            exec(compile(ast.Module(body=nodes[:-1], type_ignores=[]), "<ast>", "exec"), self.globals)
-                        r= eval(compile(ast.Expression(body=nodes[-1].value), "<ast>", "eval"), self.globals)
-                    else:
-                    """
-                    exec(source, self.globals)
+                exec(source, self.globals)
 
             if token_info == 'python-cell':
                 if code:
-                    readline.add_history(code[-1])
+                    readline.add_history(code[-1].splitlines()[-1])
 
 
 
